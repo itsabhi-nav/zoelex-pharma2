@@ -29,8 +29,37 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+/**
+ * Resolve the public URL for the current deployment so that Open Graph /
+ * Twitter images always resolve on the domain the link is actually shared
+ * from. Set NEXT_PUBLIC_SITE_URL to override (for example, when the custom
+ * domain is connected).
+ */
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.URL
+        ? process.env.URL
+        : process.env.DEPLOY_PRIME_URL
+          ? process.env.DEPLOY_PRIME_URL
+          : process.env.CF_PAGES_URL
+            ? process.env.CF_PAGES_URL
+            : site.url)
+).replace(/\/$/, "");
+
+const ogImage = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: "Zoelex Pharma — contract and private-label nutraceutical manufacturing in Pune, India.",
+  type: "image/png",
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Zoelex Pharma — Nutraceutical Contract Manufacturing",
     template: "%s — Zoelex Pharma",
@@ -50,18 +79,21 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: site.name }],
   creator: site.name,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: site.url,
+    url: siteUrl,
     siteName: site.name,
     title: "Zoelex Pharma — Nutraceutical Contract Manufacturing",
     description: site.description,
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "Zoelex Pharma — Nutraceutical Contract Manufacturing",
     description: site.description,
+    images: [ogImage.url],
   },
   robots: { index: true, follow: true },
 };
@@ -80,7 +112,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.name,
-    url: site.url,
+    url: siteUrl,
     email: site.email,
     telephone: site.phone,
     description: site.description,
@@ -92,7 +124,7 @@ export default function RootLayout({
       postalCode: "411041",
       addressCountry: "IN",
     },
-    sameAs: [site.website],
+    sameAs: [siteUrl],
   };
 
   return (
