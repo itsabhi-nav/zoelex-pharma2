@@ -136,7 +136,7 @@ The site should feel like a high-end lab / fashion house hybrid: near-black surf
 - Scroll progress line stays ember.
 
 **`components/layout/footer.tsx`**
-- Dark. Big CTA block: “Let's make something worth taking.” + email/phone + buttons.
+- Dark. Big CTA block: “A manufacturing partner for your next product.” + email/phone + buttons.
 - Add a format marquee strip.
 - Grid: logo + address, Explore, More, Contact, hours, WhatsApp.
 - Huge outlined `ZOELEX` wordmark at the bottom (decorative, `aria-hidden`).
@@ -183,7 +183,7 @@ The site should feel like a high-end lab / fashion house hybrid: near-black surf
 
 1. **Hero** (`components/sections/home-hero.tsx` — rewrite)
    - Dark, full viewport (min 92svh).
-   - Left: mono location label, huge “Make wellness worth taking.”, one sentence, primary + secondary CTA, scroll cue.
+   - Left: mono location label, huge “A manufacturing partner for your next product.”, one sentence, primary + secondary CTA, scroll cue.
    - Right: **FormatSpecimen** — auto-cycling image card (4 formats), big index, format name, short line, tick controls, corner crosshairs, subtle pointer tilt. This is the signature.
    - Bottom: spec rail with 4 real facts: Four formats · GMP/FSSAI/GLP · 24–48h response · Pune, India.
    - Pointer spotlight (desktop, fine pointer only).

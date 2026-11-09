@@ -1,7 +1,7 @@
 export const site = {
   name: "Zoelex Pharma",
   shortName: "Zoelex",
-  tagline: "Nutraceutical manufacturing, reimagined.",
+  tagline: "A manufacturing partner for your next product.",
   description:
     "Zoelex Pharma is a Pune-based contract and private-label manufacturer of gummies, oral thin films, softgels and liposomal formulations for nutraceutical brands.",
   url: "https://zoelexpharma.com",

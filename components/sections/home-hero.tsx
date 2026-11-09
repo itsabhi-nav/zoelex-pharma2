@@ -65,14 +65,14 @@ export function HomeHero() {
               <span className="hidden text-bone/35 sm:inline">Pune, India</span>
             </motion.p>
 
-            <h1 className="display display-tight mt-6 text-[clamp(3rem,6.4vw,5.6rem)] text-bone">
+            <h1 className="display display-tight mt-6 text-[clamp(2.7rem,5.6vw,5rem)] text-bone">
               <MaskLines
                 delay={0.15}
                 lines={[
-                  <>Make</>,
-                  <>wellness</>,
+                  <>A manufacturing</>,
+                  <>partner for your</>,
                   <>
-                    worth <span className="text-ember">taking.</span>
+                    <span className="text-ember">next product.</span>
                   </>,
                 ]}
               />

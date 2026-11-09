@@ -21,10 +21,12 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <p className="mono-label text-ember">Start a conversation</p>
-            <h2 className="display mt-5 text-[clamp(3rem,8vw,7rem)] leading-[0.86]">
-              Let&apos;s make something
+            <h2 className="display mt-5 text-[clamp(2.6rem,8vw,7rem)] leading-[0.86]">
+              A manufacturing
               <br />
-              <span className="text-ember">worth taking.</span>
+              partner for your
+              <br />
+              <span className="text-ember">next product.</span>
             </h2>
           </div>
 
