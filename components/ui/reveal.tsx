@@ -51,19 +51,19 @@ export function MaskReveal({
   delay?: number;
   once?: boolean;
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once, amount: 0.2 });
   return (
-    <span ref={ref} className={cn("block overflow-hidden", className)}>
-      <motion.span
+    <div ref={ref} className={cn("block overflow-hidden", className)}>
+      <motion.div
         className="block"
         initial={{ y: "108%" }}
         animate={inView ? { y: "0%" } : { y: "108%" }}
         transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
       >
         {children}
-      </motion.span>
-    </span>
+      </motion.div>
+    </div>
   );
 }
 
@@ -98,6 +98,7 @@ export function MaskLines({
             }}
           >
             {line}
+            {index < lines.length - 1 ? " " : ""}
           </motion.span>
         </span>
       ))}

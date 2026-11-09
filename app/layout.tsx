@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, Inter_Tight } from "next/font/google";
+import { Bodoni_Moda, IBM_Plex_Mono, Inter_Tight } from "next/font/google";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { MotionProvider } from "@/components/providers/motion-provider";
@@ -19,6 +19,13 @@ const bodoni = Bodoni_Moda({
 const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-inter-tight",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
   display: "swap",
 });
 
@@ -60,8 +67,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7f2e9",
-  colorScheme: "light",
+  themeColor: "#0b0a08",
+  colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
 };
@@ -89,8 +96,18 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${bodoni.variable} ${interTight.variable}`}>
+    <html
+      lang="en"
+      className={`${bodoni.variable} ${interTight.variable} ${plexMono.variable}`}
+    >
       <body>
+        <noscript>
+          <style>{`
+            [style*="opacity"] { opacity: 1 !important; }
+            [style*="transform"] { transform: none !important; }
+            [style*="clip-path"] { clip-path: none !important; }
+          `}</style>
+        </noscript>
         <a href="#main" className="skip-link">
           Skip to content
         </a>

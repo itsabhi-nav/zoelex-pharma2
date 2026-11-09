@@ -477,7 +477,7 @@ export const founder = {
   intro:
     "A pharmaceutical entrepreneur whose work is described around formulation, regulatory pathways and scale-up.",
   quote:
-    "Supplements should be as easy to take as they are to make. Our job is to make the format disappear — so the benefit doesn't.",
+    "Supplements should be as easy to take as they are to make. Our job is to make the format disappear, so the benefit doesn't.",
 };
 
 export const legal = {

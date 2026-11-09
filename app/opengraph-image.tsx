@@ -21,17 +21,32 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#f7f2e9",
-          color: "#211a16",
+          background: "#0B0A08",
+          color: "#F4EEE2",
           padding: "56px 64px",
           fontFamily: "sans-serif",
+          position: "relative",
         }}
       >
+        <div
+          style={{
+            position: "absolute",
+            left: "-120px",
+            top: "-160px",
+            width: "520px",
+            height: "520px",
+            borderRadius: "999px",
+            background:
+              "radial-gradient(circle, rgba(226,112,58,0.28) 0%, rgba(226,112,58,0.06) 55%, transparent 72%)",
+          }}
+        />
+
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            position: "relative",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
@@ -42,15 +57,17 @@ export default function OpengraphImage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: "2px solid #211a16",
-                borderRadius: "4px",
+                border: "1.5px solid rgba(244,238,226,0.5)",
+                borderRadius: "2px",
                 fontSize: "24px",
                 fontWeight: 700,
               }}
             >
               Z
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "3px" }}
+            >
               <div
                 style={{
                   fontSize: "22px",
@@ -65,7 +82,7 @@ export default function OpengraphImage() {
                 style={{
                   fontSize: "10px",
                   letterSpacing: "0.42em",
-                  color: "rgba(33,26,22,0.55)",
+                  color: "rgba(244,238,226,0.5)",
                   lineHeight: 1,
                 }}
               >
@@ -75,22 +92,39 @@ export default function OpengraphImage() {
           </div>
           <div
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
               fontSize: "13px",
               letterSpacing: "0.18em",
-              color: "rgba(33,26,22,0.6)",
+              color: "rgba(244,238,226,0.55)",
             }}
           >
-            PUNE · INDIA
+            <span
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "999px",
+                background: "#D8F26A",
+              }}
+            />
+            PUNE / INDIA
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
           <div
             style={{
-              fontSize: "16px",
-              letterSpacing: "0.16em",
+              fontSize: "15px",
+              letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "#a4673f",
+              color: "#E2703A",
               marginBottom: "26px",
             }}
           >
@@ -101,14 +135,16 @@ export default function OpengraphImage() {
               display: "flex",
               flexDirection: "column",
               fontSize: "92px",
-              lineHeight: 1,
+              lineHeight: 0.98,
               letterSpacing: "-0.03em",
               fontFamily: "Instrument Serif",
               maxWidth: "1000px",
             }}
           >
-            <span>Built to be taken.</span>
-            <span>Designed to be remembered.</span>
+            <span>Make wellness</span>
+            <span>
+              worth <span style={{ color: "#E2703A" }}>taking.</span>
+            </span>
           </div>
         </div>
 
@@ -117,14 +153,16 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid rgba(33,26,22,0.18)",
+            borderTop: "1px solid rgba(244,238,226,0.16)",
             paddingTop: "24px",
-            fontSize: "14px",
-            color: "rgba(33,26,22,0.6)",
+            fontSize: "13px",
+            letterSpacing: "0.08em",
+            color: "rgba(244,238,226,0.5)",
+            position: "relative",
           }}
         >
-          <span>GUMMIES · THIN FILMS · SOFTGELS · LIPOSOMAL</span>
-          <span>GMP · FSSAI · GLP</span>
+          <span>GUMMIES / THIN FILMS / SOFTGELS / LIPOSOMAL</span>
+          <span>GMP / FSSAI / GLP</span>
         </div>
       </div>
     ),

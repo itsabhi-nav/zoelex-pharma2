@@ -48,7 +48,9 @@ const serviceOptions = [
 export default function ContactForm() {
   const params = useSearchParams();
   const [form, setForm] = useState<FormState>(initial);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof FormState, string>>
+  >({});
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -84,12 +86,16 @@ export default function ContactForm() {
     });
   }
 
-  const update = (field: keyof FormState) => (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-  ) => {
-    setForm((current) => ({ ...current, [field]: event.target.value }));
-    setErrors((current) => ({ ...current, [field]: undefined }));
-  };
+  const update =
+    (field: keyof FormState) =>
+    (
+      event: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => {
+      setForm((current) => ({ ...current, [field]: event.target.value }));
+      setErrors((current) => ({ ...current, [field]: undefined }));
+    };
 
   const mailtoHref = useMemo(() => {
     const subject = `Product enquiry — ${form.format} — ${form.company || form.name}`;
@@ -118,7 +124,9 @@ export default function ContactForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       nextErrors.email = "Please check the email address.";
     }
-    if (!form.message.trim()) nextErrors.message = "Tell us a little about the product.";
+    if (!form.message.trim()) {
+      nextErrors.message = "Tell us a little about the product.";
+    }
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
@@ -138,19 +146,26 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex min-h-[520px] flex-col justify-between rounded-sm border border-[var(--line-dark)] bg-bone p-8 md:p-10">
+      <div className="flex min-h-[520px] flex-col justify-between border border-[var(--line)] bg-bone p-7 md:p-10">
         <div>
-          <span className="flex h-11 w-11 items-center justify-center rounded-sm bg-ember text-bone">
+          <div className="flex items-center gap-3">
+            <span className="mono-micro text-ember">Enquiry / sent</span>
+            <span
+              aria-hidden="true"
+              className="h-px flex-1 bg-[var(--line)]"
+            />
+          </div>
+          <span className="mt-8 flex h-11 w-11 items-center justify-center bg-ember text-ink">
             <Check className="h-5 w-5" />
           </span>
-          <h3 className="display mt-6 text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.02]">
+          <h3 className="display mt-6 text-[clamp(2rem,3.8vw,3rem)] leading-[0.96]">
             Your email app should be open.
           </h3>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
             The enquiry has been prepared with your details. Send it to{" "}
-            <span className="font-medium text-ink">{site.email}</span> and our team
-            will respond within 24–48 hours. If nothing opened, use the link
-            below.
+            <span className="font-medium text-ink">{site.email}</span> and our
+            team will respond within 24–48 hours. If nothing opened, use the
+            link below.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a href={mailtoHref} className="btn btn-ember">
@@ -169,7 +184,7 @@ export default function ContactForm() {
             </button>
           </div>
         </div>
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--line-dark)] pt-5">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--line)] pt-5">
           <p className="text-[12px] text-ink/55">
             Prefer WhatsApp? Reach us at {site.phone}.
           </p>
@@ -186,184 +201,204 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="rounded-sm border border-[var(--line-dark)] bg-bone p-6 text-ink md:p-9"
+      className="border border-[var(--line)] bg-bone p-6 text-ink md:p-9"
     >
-      <div className="border-b border-[var(--line-dark)] pb-6">
-        <p className="eyebrow mb-3">Product enquiry</p>
-        <h2 className="display text-[clamp(1.8rem,3.2vw,2.5rem)] leading-[1.04]">
-          Tell us what you&apos;re planning.
-        </h2>
+      <div className="flex items-center gap-3 border-b border-[var(--line)] pb-6">
+        <span className="mono-micro text-ember">Product enquiry</span>
+        <span aria-hidden="true" className="h-px flex-1 bg-[var(--line)]" />
       </div>
 
-      <div className="mt-7 grid gap-x-6 gap-y-5 sm:grid-cols-2">
-        <div>
-          <label className="field-label" htmlFor="name">
-            Full name *
-          </label>
-          <input
-            id="name"
-            name="name"
-            value={form.name}
-            onChange={update("name")}
-            placeholder="Your name"
-            autoComplete="name"
-            className="field"
-            aria-invalid={Boolean(errors.name)}
-          />
-          {errors.name && (
-            <p className="mt-1.5 text-[11px] text-coral">{errors.name}</p>
-          )}
-        </div>
+      <h2 className="display mt-6 text-[clamp(1.9rem,3.4vw,2.7rem)] leading-[0.98]">
+        Tell us what you&apos;re planning.
+      </h2>
+      <p className="mt-3 max-w-md text-[13px] leading-relaxed text-ink/55">
+        Fields marked * are required. Your details are used only to respond to
+        this enquiry.
+      </p>
 
-        <div>
-          <label className="field-label" htmlFor="company">
-            Company
-          </label>
-          <input
-            id="company"
-            name="company"
-            value={form.company}
-            onChange={update("company")}
-            placeholder="Brand or company"
-            autoComplete="organization"
-            className="field"
-          />
-        </div>
+      <fieldset className="mt-8">
+        <legend className="mono-micro mb-4 text-ink/40">About you</legend>
+        <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+          <div>
+            <label className="field-label" htmlFor="name">
+              Full name *
+            </label>
+            <input
+              id="name"
+              name="name"
+              value={form.name}
+              onChange={update("name")}
+              placeholder="Your name"
+              autoComplete="name"
+              className="field"
+              aria-invalid={Boolean(errors.name)}
+            />
+            {errors.name && (
+              <p className="mt-1.5 text-[11px] text-coral">{errors.name}</p>
+            )}
+          </div>
 
-        <div>
-          <label className="field-label" htmlFor="email">
-            Email *
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={update("email")}
-            placeholder="you@company.com"
-            autoComplete="email"
-            className="field"
-            aria-invalid={Boolean(errors.email)}
-          />
-          {errors.email && (
-            <p className="mt-1.5 text-[11px] text-coral">{errors.email}</p>
-          )}
-        </div>
+          <div>
+            <label className="field-label" htmlFor="company">
+              Company
+            </label>
+            <input
+              id="company"
+              name="company"
+              value={form.company}
+              onChange={update("company")}
+              placeholder="Brand or company"
+              autoComplete="organization"
+              className="field"
+            />
+          </div>
 
-        <div>
-          <label className="field-label" htmlFor="phone">
-            Phone / WhatsApp
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            value={form.phone}
-            onChange={update("phone")}
-            placeholder="+91"
-            autoComplete="tel"
-            className="field"
-          />
-        </div>
+          <div>
+            <label className="field-label" htmlFor="email">
+              Email *
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={update("email")}
+              placeholder="you@company.com"
+              autoComplete="email"
+              className="field"
+              aria-invalid={Boolean(errors.email)}
+            />
+            {errors.email && (
+              <p className="mt-1.5 text-[11px] text-coral">{errors.email}</p>
+            )}
+          </div>
 
-        <div>
-          <label className="field-label" htmlFor="country">
-            Country
-          </label>
-          <input
-            id="country"
-            name="country"
-            value={form.country}
-            onChange={update("country")}
-            placeholder="Country"
-            autoComplete="country-name"
-            className="field"
-          />
-        </div>
+          <div>
+            <label className="field-label" htmlFor="phone">
+              Phone / WhatsApp
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              value={form.phone}
+              onChange={update("phone")}
+              placeholder="+91"
+              autoComplete="tel"
+              className="field"
+            />
+          </div>
 
-        <div>
-          <label className="field-label" htmlFor="quantity">
-            Estimated quantity
-          </label>
-          <input
-            id="quantity"
-            name="quantity"
-            value={form.quantity}
-            onChange={update("quantity")}
-            placeholder="e.g. 10,000 units"
-            className="field"
-          />
-        </div>
+          <div>
+            <label className="field-label" htmlFor="country">
+              Country
+            </label>
+            <input
+              id="country"
+              name="country"
+              value={form.country}
+              onChange={update("country")}
+              placeholder="Country"
+              autoComplete="country-name"
+              className="field"
+            />
+          </div>
 
-        <div>
-          <label className="field-label" htmlFor="format">
-            Interested format
-          </label>
-          <select
-            id="format"
-            name="format"
-            value={form.format}
-            onChange={update("format")}
-            className="field"
-          >
-            {formatOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          <div>
+            <label className="field-label" htmlFor="quantity">
+              Estimated quantity
+            </label>
+            <input
+              id="quantity"
+              name="quantity"
+              value={form.quantity}
+              onChange={update("quantity")}
+              placeholder="e.g. 10,000 units"
+              className="field"
+            />
+          </div>
         </div>
+      </fieldset>
 
-        <div>
-          <label className="field-label" htmlFor="service">
-            Service
-          </label>
-          <select
-            id="service"
-            name="service"
-            value={form.service}
-            onChange={update("service")}
-            className="field"
-          >
-            {serviceOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+      <fieldset className="mt-9 border-t border-[var(--line)] pt-7">
+        <legend className="mono-micro mb-4 text-ink/40">The product</legend>
+        <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+          <div>
+            <label className="field-label" htmlFor="format">
+              Interested format
+            </label>
+            <select
+              id="format"
+              name="format"
+              value={form.format}
+              onChange={update("format")}
+              className="field"
+            >
+              {formatOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="field-label" htmlFor="service">
+              Service
+            </label>
+            <select
+              id="service"
+              name="service"
+              value={form.service}
+              onChange={update("service")}
+              className="field"
+            >
+              {serviceOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="sm:col-span-2">
+            <label className="field-label" htmlFor="message">
+              Message *
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={form.message}
+              onChange={update("message")}
+              rows={5}
+              placeholder="Share your product idea, target market and estimated quantity."
+              className="field resize-none"
+              aria-invalid={Boolean(errors.message)}
+            />
+            {errors.message && (
+              <p className="mt-1.5 text-[11px] text-coral">{errors.message}</p>
+            )}
+          </div>
         </div>
+      </fieldset>
 
-        <div className="sm:col-span-2">
-          <label className="field-label" htmlFor="message">
-            Message *
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={form.message}
-            onChange={update("message")}
-            rows={5}
-            placeholder="Share your product idea, target market and estimated quantity."
-            className="field resize-none"
-            aria-invalid={Boolean(errors.message)}
-          />
-          {errors.message && (
-            <p className="mt-1.5 text-[11px] text-coral">{errors.message}</p>
-          )}
-        </div>
-      </div>
-
-      <div className="mt-7 flex flex-col gap-5 border-t border-[var(--line-dark)] pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-8 flex flex-col gap-5 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
           <button
             type="button"
             onClick={copyEmail}
-            className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-[var(--line-dark)] text-ink/50 transition-colors hover:border-ember hover:text-ember"
+            className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center border border-[var(--line)] text-ink/50 transition-colors hover:border-ember hover:text-ember"
             aria-label="Copy Zoelex email address"
           >
-            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+            {copied ? (
+              <Check className="h-3.5 w-3.5" />
+            ) : (
+              <Copy className="h-3.5 w-3.5" />
+            )}
           </button>
           <p className="max-w-xs text-[11px] leading-relaxed text-ink/55">
-            {copied ? "Email address copied." : "Your details are used only to respond to this enquiry. We do not share them with third parties."}
+            {copied
+              ? "Email address copied."
+              : "Your details are used only to respond to this enquiry. We do not share them with third parties."}
           </p>
         </div>
         <button type="submit" className="btn btn-ember shrink-0">

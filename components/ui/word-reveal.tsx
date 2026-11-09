@@ -1,32 +1,33 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
-import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-function Word({
-  children,
-  progress,
-  range,
-}: {
-  children: ReactNode;
-  progress: MotionValue<number>;
-  range: [number, number];
-}) {
-  const opacity = useTransform(progress, range, [0.14, 1]);
-  return (
-    <motion.span style={{ opacity }} className="mr-[0.26em] inline-block">
-      {children}
-    </motion.span>
-  );
-}
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.028 },
+  },
+};
 
+const word = {
+  hidden: { y: "110%", opacity: 0 },
+  show: {
+    y: "0%",
+    opacity: 1,
+    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
+
+/**
+ * Word-by-word reveal that stays visible once triggered. Unlike a
+ * scroll-linked opacity map, the text does not fade again when the visitor
+ * scrolls back up.
+ *
+ * The animation is driven by the paragraph (not the clipped word spans):
+ * observing a child that is fully clipped by `overflow-hidden` reports a
+ * zero intersection ratio and would never trigger.
+ */
 export function WordReveal({
   text,
   className,
@@ -34,33 +35,25 @@ export function WordReveal({
   text: string;
   className?: string;
 }) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const reduced = usePrefersReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.85", "end 0.45"],
-  });
   const words = text.split(" ");
 
-  if (reduced) {
-    return <p className={className}>{text}</p>;
-  }
-
   return (
-    <p ref={ref} className={cn("flex flex-wrap", className)}>
-      {words.map((word, index) => {
-        const start = index / words.length;
-        const end = (index + 1) / words.length;
-        return (
-          <Word
-            key={`${word}-${index}`}
-            progress={scrollYProgress}
-            range={[start, end]}
-          >
-            {word}
-          </Word>
-        );
-      })}
-    </p>
+    <motion.p
+      className={cn(className)}
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      {words.map((item, index) => (
+        <span key={`${item}-${index}`}>
+          <span className="mr-[0.24em] inline-block overflow-hidden align-bottom">
+            <motion.span className="inline-block" variants={word}>
+              {item}
+            </motion.span>
+          </span>{" "}
+        </span>
+      ))}
+    </motion.p>
   );
 }

@@ -19,20 +19,34 @@ export function SectionHead({
     <div className={cn("grid gap-8 lg:grid-cols-12 lg:items-end", className)}>
       <Reveal className="lg:col-span-7">
         {label && (
-          <p
-            className={cn(
-              "eyebrow mb-5 flex items-center gap-3",
-              dark && "!text-bone/55",
-            )}
-          >
-            <span className="h-px w-6 bg-ember" />
-            {label}
-          </p>
+          <div className="flex items-center gap-3">
+            <span
+              className={cn(
+                "mono-micro",
+                dark ? "text-bone/45" : "text-ink/45",
+              )}
+            >
+              {label}
+            </span>
+            <span
+              className={cn(
+                "h-px flex-1",
+                dark ? "bg-[var(--line-light)]" : "bg-[var(--line)]",
+              )}
+              aria-hidden="true"
+            />
+          </div>
         )}
-        <h2 className="display text-[clamp(2.3rem,4.8vw,4.2rem)] leading-[1.02]">
+        <h2
+          className={cn(
+            "display mt-5 text-[clamp(2.4rem,5.6vw,5rem)] leading-[0.94]",
+            dark ? "text-bone" : "text-ink",
+          )}
+        >
           {title}
         </h2>
       </Reveal>
+
       {copy && (
         <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
           <p

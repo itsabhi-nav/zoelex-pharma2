@@ -1,38 +1,40 @@
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { Marquee } from "@/components/ui/marquee";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { nav, site } from "@/lib/site";
 
 const moreLinks = [
   { label: "Why Zoelex", href: "/about#why-zoelex" },
-  { label: "Product Categories", href: "/technologies#categories" },
+  { label: "Product categories", href: "/technologies#categories" },
   { label: "Infrastructure", href: "/manufacturing#facility" },
-  { label: "Quality Process", href: "/manufacturing#quality" },
+  { label: "Quality process", href: "/manufacturing#quality" },
   { label: "Careers", href: "/about#careers" },
   { label: "FAQs", href: "/contact#faqs" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-plum text-bone">
-      <section className="shell border-t border-[var(--line-dark)] py-20 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <p className="eyebrow mb-5">Start a conversation</p>
-            <h2 className="display text-[clamp(2.6rem,6vw,5.2rem)] leading-[0.98]">
+    <footer className="surface-dark relative overflow-hidden">
+      <section className="shell border-t border-[var(--line-light)] py-20 md:py-28">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <p className="mono-label text-ember">Start a conversation</p>
+            <h2 className="display mt-5 text-[clamp(3rem,8vw,7rem)] leading-[0.86]">
               Let&apos;s make something
               <br />
-              worth taking.
+              <span className="text-ember">worth taking.</span>
             </h2>
           </div>
-          <div className="lg:col-span-4 lg:col-start-9">
+
+          <div className="lg:col-span-4">
             <p className="max-w-sm text-[15px] leading-relaxed text-bone/60">
               Share your idea, intended market and preferred format. Our team
               responds within 24–48 hours with formulation options and a quote.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/contact" className="btn btn-bone">
+              <Link href="/contact" className="btn btn-ember">
                 Start an enquiry
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
@@ -40,11 +42,42 @@ export default function Footer() {
                 Browse formats
               </Link>
             </div>
+
+            <div className="mt-8 border-t border-[var(--line-light)] pt-5">
+              <a
+                href={`mailto:${site.email}`}
+                className="block text-[17px] text-bone/80 transition-colors hover:text-ember"
+              >
+                {site.email}
+              </a>
+              <a
+                href={site.phoneHref}
+                className="mt-1 block text-sm text-bone/50 transition-colors hover:text-bone"
+              >
+                {site.phone}
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="shell border-t border-[var(--line-dark)] py-14">
+      <div className="border-y border-[var(--line-light)] py-5">
+        <Marquee
+          items={[
+            "Gummies",
+            "Oral thin films",
+            "Softgels",
+            "Liposomal",
+            "Contract manufacturing",
+            "Private label",
+          ]}
+          className="text-bone/30"
+          itemClassName="display text-[clamp(1.5rem,2.8vw,2.4rem)] leading-none"
+          duration={36}
+        />
+      </div>
+
+      <section className="shell py-14">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Logo className="text-bone" />
@@ -65,7 +98,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <p className="eyebrow mb-4">Explore</p>
+            <p className="mono-micro mb-4 text-bone/40">Explore</p>
             <ul className="space-y-2.5">
               {nav.map((item) => (
                 <li key={item.href}>
@@ -81,7 +114,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <p className="eyebrow mb-4">More</p>
+            <p className="mono-micro mb-4 text-bone/40">More</p>
             <ul className="space-y-2.5">
               {moreLinks.map((item) => (
                 <li key={item.href}>
@@ -97,7 +130,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <p className="eyebrow mb-4">Get in touch</p>
+            <p className="mono-micro mb-4 text-bone/40">Get in touch</p>
             <ul className="space-y-2.5 text-sm text-bone/55">
               <li>
                 <a
@@ -151,15 +184,30 @@ export default function Footer() {
         </div>
       </section>
 
-      <div className="shell border-t border-[var(--line-dark)]">
-        <div className="flex flex-col gap-3 py-6 pb-24 text-[11px] text-bone/45 sm:pr-24 sm:pb-6 md:flex-row md:items-center md:justify-between">
+      <div className="shell overflow-hidden border-t border-[var(--line-light)] pt-8">
+        <p
+          aria-hidden="true"
+          className="display text-stroke-light whitespace-nowrap text-center text-[clamp(5rem,18vw,16rem)] leading-[0.72] tracking-[-0.05em]"
+        >
+          ZOELEX
+        </p>
+      </div>
+
+      <div className="shell border-t border-[var(--line-light)]">
+        <div className="flex flex-col gap-3 py-6 pb-24 text-[11px] text-bone/40 sm:pr-24 sm:pb-6 md:flex-row md:items-center md:justify-between">
           <p className="max-w-xl leading-relaxed">{site.disclaimer}</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span>© 2026 Zoelex Pharma</span>
-            <Link href="/privacy-policy" className="transition-colors hover:text-bone">
+            <Link
+              href="/privacy-policy"
+              className="transition-colors hover:text-bone"
+            >
               Privacy
             </Link>
-            <Link href="/terms-of-use" className="transition-colors hover:text-bone">
+            <Link
+              href="/terms-of-use"
+              className="transition-colors hover:text-bone"
+            >
               Terms
             </Link>
             <a href="#top" className="transition-colors hover:text-bone">
@@ -167,6 +215,10 @@ export default function Footer() {
             </a>
           </div>
         </div>
+        <p className="pb-24 text-[10px] text-bone/25 sm:pb-6">
+          Selected photography via Pexels. Imagery is illustrative and does not
+          depict the Zoelex facility or products.
+        </p>
       </div>
     </footer>
   );

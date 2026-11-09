@@ -1,16 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { MaskLines } from "@/components/ui/reveal";
+import { CursorGlow } from "@/components/ui/cursor-glow";
+import { FormatSpecimen } from "@/components/sections/format-specimen";
+import { SpecRail } from "@/components/sections/spec-rail";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 const stats = [
   { label: "Delivery formats", value: "Four" },
@@ -26,130 +24,103 @@ export function HomeHero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.15]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.2]);
 
   return (
-    <section ref={ref} className="relative pt-24 md:pt-28">
-      <div className="shell grid items-center gap-12 pb-12 lg:grid-cols-12 lg:gap-8 lg:pb-16">
-        <motion.div
-          className="lg:col-span-6"
-          style={reduced ? undefined : { y: textY, opacity: textOpacity }}
-        >
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="eyebrow"
-          >
-            Contract &amp; private-label manufacturing · Pune, India
-          </motion.p>
+    <section
+      ref={ref}
+      className="surface-dark relative flex min-h-[100svh] flex-col overflow-hidden pt-[calc(var(--nav-h)+1.5rem)]"
+    >
+      <CursorGlow className="hidden md:block" />
 
-          <h1 className="display display-tight mt-6 text-[clamp(3rem,7.2vw,6.6rem)]">
-            <MaskLines
-              delay={0.1}
-              lines={[
-                <>Built to be</>,
-                <>taken.</>,
-                <>
-                  <span className="italic text-ember">Designed</span> to be
-                </>,
-                <>remembered.</>,
-              ]}
-            />
-          </h1>
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute -left-40 top-10 h-[42rem] w-[42rem] rounded-full bg-ember/[0.07] blur-[140px]" />
+        <div className="absolute -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full bg-sage/[0.04] blur-[120px]" />
+        <div
+          className="absolute inset-0 opacity-[0.4]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(244,238,226,0.04) 1px, transparent 1px)",
+            backgroundSize: "clamp(80px, 10vw, 160px) 100%",
+          }}
+        />
+      </div>
 
+      <div className="shell relative flex flex-1 items-center">
+        <div className="grid w-full items-center gap-10 py-8 lg:grid-cols-12 lg:gap-8 lg:py-8">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55 }}
+            className="lg:col-span-6"
+            style={reduced ? undefined : { y: textY, opacity: textOpacity }}
           >
-            <p className="mt-7 max-w-md text-[15px] leading-relaxed text-ink/65">
-              Zoelex Pharma makes gummies, oral thin films, softgels and
-              liposomal products for brands that care how the product is taken
-              — and how it is remembered.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="/contact" className="btn btn-ember">
-                Start an enquiry
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-              <Link href="/technologies" className="btn btn-outline">
-                Explore formats
-              </Link>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-10 hidden items-center gap-3 lg:flex"
-          >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--line-strong)] text-ink/50">
-              <ArrowDown className="h-3.5 w-3.5" />
-            </span>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink/40">
-              Scroll
-            </span>
-          </motion.div>
-        </motion.div>
-
-        <div className="lg:col-span-6">
-          <motion.div
-            style={reduced ? undefined : { y: imageY }}
-            className="relative mx-auto w-full max-w-[520px] lg:ml-auto lg:mr-0"
-          >
-            <motion.div
-              initial={{ clipPath: "inset(100% 0 0 0)" }}
-              animate={{ clipPath: "inset(0% 0 0 0)" }}
-              transition={{ duration: 1.4, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="img-frame img-warm relative aspect-[4/5] overflow-hidden rounded-sm border border-[var(--line)]"
-            >
-              <Image
-                src="/images/gummies-jar.jpg"
-                alt="Red gummy supplements in a clear jar"
-                fill
-                priority
-                sizes="(max-width: 1024px) 92vw, 44vw"
-                className="object-cover"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-8 -left-4 hidden w-[38%] overflow-hidden rounded-sm border-[6px] border-bone sm:block md:-left-10"
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="mono-label flex items-center gap-3 text-bone/55"
             >
-              <div className="relative aspect-square">
-                <Image
-                  src="/images/softgels-2.jpg"
-                  alt="Amber softgel capsules in warm light"
-                  fill
-                  sizes="20vw"
-                  className="img-warm object-cover object-bottom"
-                />
+              <span className="h-px w-8 bg-ember" aria-hidden="true" />
+              Contract &amp; private-label manufacturing
+              <span className="hidden text-bone/25 sm:inline">·</span>
+              <span className="hidden text-bone/35 sm:inline">Pune, India</span>
+            </motion.p>
+
+            <h1 className="display display-tight mt-6 text-[clamp(3rem,6.4vw,5.6rem)] text-bone">
+              <MaskLines
+                delay={0.15}
+                lines={[
+                  <>Make</>,
+                  <>wellness</>,
+                  <>
+                    worth <span className="text-ember">taking.</span>
+                  </>,
+                ]}
+              />
+            </h1>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <p className="mt-7 max-w-md text-[16px] leading-relaxed text-bone/60">
+                Zoelex Pharma makes gummies, oral thin films, softgels and
+                liposomal products for brands that care how the product is
+                taken, and how it is remembered.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link href="/contact" className="btn btn-ember">
+                  Start an enquiry
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+                <Link href="/technologies" className="btn btn-outline-light">
+                  Explore formats
+                </Link>
               </div>
+
             </motion.div>
+          </motion.div>
+
+          <motion.div
+            className="lg:col-span-5 lg:col-start-8"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <FormatSpecimen />
           </motion.div>
         </div>
       </div>
 
-      <div className="shell">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[var(--line)] py-6 sm:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/40">
-                {stat.label}
-              </p>
-              <p className="mt-1.5 text-[13px] font-medium text-ink/85">
-                {stat.value}
-              </p>
-            </div>
-          ))}
-        </div>
+      <div className="shell relative pb-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 1 }}
+        >
+          <SpecRail items={stats} />
+        </motion.div>
       </div>
     </section>
   );
