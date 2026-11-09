@@ -182,6 +182,11 @@ button {
   outline-offset: 3px;
 }
 
+/* Keep the floating WhatsApp button out of the full-screen mobile menu. */
+html[data-menu-open="true"] .whatsapp-fab {
+  display: none;
+}
+
 /* ---------- type ---------- */
 
 .display {

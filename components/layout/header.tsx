@@ -41,13 +41,16 @@ export default function Header() {
     ).__lenis;
     if (open) {
       document.documentElement.style.overflow = "hidden";
+      document.documentElement.dataset.menuOpen = "true";
       lenis?.stop();
     } else {
       document.documentElement.style.overflow = "";
+      delete document.documentElement.dataset.menuOpen;
       lenis?.start();
     }
     return () => {
       document.documentElement.style.overflow = "";
+      delete document.documentElement.dataset.menuOpen;
     };
   }, [open]);
 
@@ -127,7 +130,7 @@ export default function Header() {
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="fixed inset-0 z-40 overflow-y-auto bg-ink pt-[var(--nav-h)] lg:hidden"
+            className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-ink pt-[var(--nav-h)] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -142,7 +145,7 @@ export default function Header() {
                 className="object-cover"
               />
             </div>
-            <div className="relative flex min-h-full flex-col justify-between gap-12 pb-10 pt-8">
+            <div className="relative flex min-h-full flex-col gap-8 pb-10 pt-6">
               <nav className="shell flex flex-col" aria-label="Mobile">
                 {nav.map((item, index) => (
                   <motion.div
@@ -161,11 +164,11 @@ export default function Header() {
                       onClick={() => setOpen(false)}
                       aria-current={isActive(item.href) ? "page" : undefined}
                       className={cn(
-                        "flex items-baseline justify-between gap-6 py-4",
+                        "flex items-baseline justify-between gap-6 py-3",
                         isActive(item.href) ? "text-ember" : "text-bone",
                       )}
                     >
-                      <span className="display text-[clamp(2.6rem,11vw,4.2rem)] leading-none">
+                      <span className="display text-[clamp(2rem,9vw,3.4rem)] leading-none">
                         {item.label}
                       </span>
                       <span className="mono-micro text-bone/35">
@@ -180,7 +183,7 @@ export default function Header() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.35, duration: 0.5 }}
-                className="shell grid gap-8 sm:grid-cols-2"
+                className="shell grid gap-6 sm:grid-cols-2"
               >
                 <div>
                   <p className="mono-micro mb-3 text-bone/40">Talk to us</p>
